@@ -75,7 +75,7 @@
   },
   "scripts": {
     "compile": "hardhat compile",
-    "test": "hardhat test --network zkSyncLocalhost",
+    "test": "hardhat test",
     "local-setup": "./scripts/start-local-setup.sh"
   }
 }
