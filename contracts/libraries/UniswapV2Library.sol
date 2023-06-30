@@ -28,7 +28,7 @@ library UniswapV2Library {
                         bytes32(0x2020dba91b30cc0006188af794c2fb30dd8520db7e2c088b7fc7c103c00ca494), // keccak256("zksyncCreate2")
                         bytes32(uint256(uint160(factory))), // sender
                         keccak256(abi.encodePacked(token0, token1)), // salt
-                        hex'0100065f7ffa40214b8f80edc8590b085554235d964314001700bdaa19ead1d7', // init code hash
+                        hex'0100065f2f2a556816a482652f101ddda2947216a5720dd91a79c61709cbf2b8', // init code hash
                         bytes32(0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470) // constructor input hash: keccak256("")
                     )
                 )
