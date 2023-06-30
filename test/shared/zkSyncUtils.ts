@@ -6,8 +6,9 @@ import * as fs from 'fs';
 import { utils as ethersUtils } from 'ethers'
 import { ethers } from 'hardhat';
 import { ZkSyncArtifact } from '@matterlabs/hardhat-zksync-deploy/dist/types'
+import * as path from 'path'
 
-const RICH_WALLET_PRIVATE_KEYS = JSON.parse(fs.readFileSync(`../../local-setup/rich-wallets.json`, "utf8"));
+const RICH_WALLET_PRIVATE_KEYS = JSON.parse(fs.readFileSync(path.join(__dirname, `../../local-setup/rich-wallets.json`), 'utf8'))
 
 const provider = Provider.getDefaultProvider();
 const wallet = new Wallet(RICH_WALLET_PRIVATE_KEYS[0].privateKey, provider);
