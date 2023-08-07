@@ -32,7 +32,7 @@ describe('MulticallExtended', async () => {
 
   it('fails previousBlockhash check', async () => {
     await expect(
-      multicall['multicall(bytes32,bytes[])'](constants.HashZero, [
+      multicall['multicall(bytes32,bytes[])']('0x0000000000000000000000000000000000000000000000000000000000000001', [
         multicall.interface.encodeFunctionData('functionThatReturnsTuple', ['1', '2']),
       ])
     ).to.be.revertedWith('Blockhash')
