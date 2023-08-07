@@ -15,7 +15,10 @@ describe('OracleSlippage', function () {
   let oracle: OracleSlippageTest
 
   async function oracleTestFixture() {
-    return (await deployContract((await getWallets())[0], 'OracleSlippageTest', [constants.AddressZero, constants.AddressZero])) as OracleSlippageTest
+    return (await deployContract((await getWallets())[0], 'OracleSlippageTest', [
+      constants.AddressZero,
+      constants.AddressZero,
+    ])) as OracleSlippageTest
   }
 
   beforeEach('deploy fixture', async () => {
@@ -30,7 +33,11 @@ describe('OracleSlippage', function () {
     ticks: number[],
     mockLowObservationCardinality = false
   ): Promise<MockObservations> {
-    const mockPool = await deployContract((await getWallets())[0], 'MockObservations', [blockTimestamps, ticks, mockLowObservationCardinality])
+    const mockPool = await deployContract((await getWallets())[0], 'MockObservations', [
+      blockTimestamps,
+      ticks,
+      mockLowObservationCardinality,
+    ])
     await (await oracle.registerPool(mockPool.address, tokenA, tokenB, fee)).wait()
     await (await oracle.setTime(blockTimestamps[blockTimestamps.length - 1])).wait()
     return mockPool as MockObservations

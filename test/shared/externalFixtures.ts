@@ -10,47 +10,46 @@ import * as zk from 'zksync-web3'
 import { constants, ethers } from 'ethers'
 import { Wallet, Contract } from 'zksync-web3'
 
-import * as NFT_POSITION_MANAGER_ARTIFACT
- from '@uniswap/v3-periphery/artifacts-zk/contracts/NonfungiblePositionManager.sol/NonfungiblePositionManager.json'
+import * as NFT_POSITION_MANAGER_ARTIFACT from '@uniswap/v3-periphery/artifacts-zk/contracts/NonfungiblePositionManager.sol/NonfungiblePositionManager.json'
 import { ZkSyncArtifact } from '@matterlabs/hardhat-zksync-deploy/dist/types'
 
-async function wethFixture([wallet]: [Wallet]): Promise< { weth9: IWETH9 } > {
-  const weth9 = (await deployContractWithArtifact(wallet, WETH9 as any as ZkSyncArtifact)) as IWETH9
+async function wethFixture([wallet]: [Wallet]): Promise<{ weth9: IWETH9 }> {
+  const weth9 = (await deployContractWithArtifact(wallet, (WETH9 as any) as ZkSyncArtifact)) as IWETH9
 
   return { weth9 }
 }
 
-export async function v2FactoryFixture([wallet]: Wallet[]): Promise< { factory: Contract } > {
-  const contractFactory = new zk.ContractFactory(
-    FACTORY_V2_ARTIFACT.abi,
-    FACTORY_V2_ARTIFACT.bytecode,
-    wallet
-  )
+export async function v2FactoryFixture([wallet]: Wallet[]): Promise<{ factory: Contract }> {
+  const contractFactory = new zk.ContractFactory(FACTORY_V2_ARTIFACT.abi, FACTORY_V2_ARTIFACT.bytecode, wallet)
 
-  let factoryDeps: string[] = extractFactoryDeps(FACTORY_V2_ARTIFACT as any as ZkSyncArtifact, [PAIR_V2_ARTIFACT as any as ZkSyncArtifact])
-  const factory = await (await contractFactory.deploy(...[constants.AddressZero], {
-    customData: {
-      factoryDeps,
-    },
-  })).deployed()
+  let factoryDeps: string[] = extractFactoryDeps((FACTORY_V2_ARTIFACT as any) as ZkSyncArtifact, [
+    (PAIR_V2_ARTIFACT as any) as ZkSyncArtifact,
+  ])
+  const factory = await (
+    await contractFactory.deploy(...[constants.AddressZero], {
+      customData: {
+        factoryDeps,
+      },
+    })
+  ).deployed()
 
   return { factory }
 }
 
 async function v3CoreFactoryFixture([wallet]: Wallet[]): Promise<Contract> {
-  const contractFactory = new zk.ContractFactory(
-    FACTORY_ARTIFACT.abi,
-    FACTORY_ARTIFACT.bytecode,
-    wallet
-  )
+  const contractFactory = new zk.ContractFactory(FACTORY_ARTIFACT.abi, FACTORY_ARTIFACT.bytecode, wallet)
 
-  let factoryDeps: string[] = extractFactoryDeps(FACTORY_ARTIFACT as any as ZkSyncArtifact, [POOL_ARTIFACT as any as ZkSyncArtifact])
+  let factoryDeps: string[] = extractFactoryDeps((FACTORY_ARTIFACT as any) as ZkSyncArtifact, [
+    (POOL_ARTIFACT as any) as ZkSyncArtifact,
+  ])
 
-  return await (await contractFactory.deploy(...[], {
-    customData: {
-      factoryDeps,
-    },
-  })).deployed()
+  return await (
+    await contractFactory.deploy(...[], {
+      customData: {
+        factoryDeps,
+      },
+    })
+  ).deployed()
 }
 
 export async function v3RouterFixture([wallet]: Wallet[]): Promise<{
@@ -64,23 +63,27 @@ export async function v3RouterFixture([wallet]: Wallet[]): Promise<{
   const { factory: factoryV2 } = await v2FactoryFixture([wallet])
   const factory = await v3CoreFactoryFixture([wallet])
 
-  const nft = await deployContractWithArtifact(
-    wallet, 
-    NFT_POSITION_MANAGER_ARTIFACT as any as ZkSyncArtifact,
-    [factory.address, weth9.address, constants.AddressZero]
-  )
+  const nft = await deployContractWithArtifact(wallet, (NFT_POSITION_MANAGER_ARTIFACT as any) as ZkSyncArtifact, [
+    factory.address,
+    weth9.address,
+    constants.AddressZero,
+  ])
 
   const router = (await deployContract(wallet, 'MockTimeSwapRouter02', [
     factoryV2.address,
     factory.address,
     nft.address,
-    weth9.address
+    weth9.address,
   ])) as MockTimeSwapRouter02
 
   return { weth9, factoryV2, factory, nft, router }
 }
 
-function extractFactoryDeps(artifact: ZkSyncArtifact, knownArtifacts: ZkSyncArtifact[], visited?: Set<string>): string[] {
+function extractFactoryDeps(
+  artifact: ZkSyncArtifact,
+  knownArtifacts: ZkSyncArtifact[],
+  visited?: Set<string>
+): string[] {
   if (visited == null) {
     visited = new Set<string>()
     visited.add(`${FACTORY_V2_ARTIFACT.sourceName}:${FACTORY_V2_ARTIFACT.contractName}`)
@@ -92,9 +95,11 @@ function extractFactoryDeps(artifact: ZkSyncArtifact, knownArtifacts: ZkSyncArti
     const dependencyContract = artifact.factoryDeps[dependencyHash]
 
     if (!visited.has(dependencyContract)) {
-      const dependencyArtifact = knownArtifacts.find(dependencyArtifact => {
-        return dependencyArtifact.sourceName + ':' + dependencyArtifact.contractName === dependencyContract &&
+      const dependencyArtifact = knownArtifacts.find((dependencyArtifact) => {
+        return (
+          dependencyArtifact.sourceName + ':' + dependencyArtifact.contractName === dependencyContract &&
           ethers.utils.hexlify(zk.utils.hashBytecode(dependencyArtifact.bytecode)) === dependencyHash
+        )
       })
       if (dependencyArtifact === undefined) {
         throw new Error('Dependency: `' + dependencyContract + '` is not found')

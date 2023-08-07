@@ -23,7 +23,9 @@ describe('ApproveAndCall', function () {
   let wallet: Wallet
   let trader: Wallet
 
-  async function swapRouterFixture(wallets: Wallet[]): Promise<{
+  async function swapRouterFixture(
+    wallets: Wallet[]
+  ): Promise<{
     factory: Contract
     router: MockTimeSwapRouter02
     nft: Contract
@@ -69,12 +71,14 @@ describe('ApproveAndCall', function () {
       if (tokenAddressA.toLowerCase() > tokenAddressB.toLowerCase())
         [tokenAddressA, tokenAddressB] = [tokenAddressB, tokenAddressA]
 
-      await (await nft.createAndInitializePoolIfNecessary(
-        tokenAddressA,
-        tokenAddressB,
-        FeeAmount.MEDIUM,
-        encodePriceSqrt(1, 1)
-      )).wait()
+      await (
+        await nft.createAndInitializePoolIfNecessary(
+          tokenAddressA,
+          tokenAddressB,
+          FeeAmount.MEDIUM,
+          encodePriceSqrt(1, 1)
+        )
+      ).wait()
 
       const liquidityParams = {
         token0: tokenAddressA,
@@ -152,16 +156,18 @@ describe('ApproveAndCall', function () {
       let poolBalance1Before = await tokens[1].balanceOf(pool)
 
       // perform the mint
-      await (await router.mint({
-        token0: tokens[0].address,
-        token1: tokens[1].address,
-        fee: FeeAmount.MEDIUM,
-        tickLower: getMinTick(TICK_SPACINGS[FeeAmount.MEDIUM]),
-        tickUpper: getMaxTick(TICK_SPACINGS[FeeAmount.MEDIUM]),
-        recipient: trader.address,
-        amount0Min: 0,
-        amount1Min: 0,
-      })).wait()
+      await (
+        await router.mint({
+          token0: tokens[0].address,
+          token1: tokens[1].address,
+          fee: FeeAmount.MEDIUM,
+          tickLower: getMinTick(TICK_SPACINGS[FeeAmount.MEDIUM]),
+          tickUpper: getMaxTick(TICK_SPACINGS[FeeAmount.MEDIUM]),
+          recipient: trader.address,
+          amount0Min: 0,
+          amount1Min: 0,
+        })
+      ).wait()
 
       expect((await tokens[0].balanceOf(router.address)).toNumber()).to.be.eq(0)
       expect((await tokens[1].balanceOf(router.address)).toNumber()).to.be.eq(0)
@@ -175,13 +181,15 @@ describe('ApproveAndCall', function () {
       await (await tokens[1].transfer(router.address, amount)).wait()
 
       // perform the increaseLiquidity
-      await (await router.increaseLiquidity({
-        token0: tokens[0].address,
-        token1: tokens[1].address,
-        tokenId: 2,
-        amount0Min: 0,
-        amount1Min: 0,
-      })).wait()
+      await (
+        await router.increaseLiquidity({
+          token0: tokens[0].address,
+          token1: tokens[1].address,
+          tokenId: 2,
+          amount0Min: 0,
+          amount1Min: 0,
+        })
+      ).wait()
 
       expect((await tokens[0].balanceOf(router.address)).toNumber()).to.be.eq(0)
       expect((await tokens[1].balanceOf(router.address)).toNumber()).to.be.eq(0)
@@ -366,7 +374,15 @@ describe('ApproveAndCall', function () {
         const traderNFTBalanceBefore = await nft.balanceOf(trader.address)
         expect(traderNFTBalanceBefore.toNumber()).to.be.eq(0)
 
-        await (await anyAssetAddExactInput(tokens[0].address, tokens[1].address, tokens[2].address, amountIn, amountOutMinimum)).wait()
+        await (
+          await anyAssetAddExactInput(
+            tokens[0].address,
+            tokens[1].address,
+            tokens[2].address,
+            amountIn,
+            amountOutMinimum
+          )
+        ).wait()
 
         const traderToken0BalanceAfter = await tokens[0].balanceOf(trader.address)
         const traderToken1BalanceAfter = await tokens[1].balanceOf(trader.address)

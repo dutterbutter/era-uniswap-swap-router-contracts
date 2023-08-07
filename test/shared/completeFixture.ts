@@ -16,7 +16,7 @@ async function completeFixture([wallet]: Wallet[]): Promise<{
   const tokens: [TestERC20, TestERC20, TestERC20] = [
     (await deployContract(wallet, 'TestERC20', [constants.MaxUint256.div(2)])) as TestERC20, // do not use maxu256 to avoid overflowing
     (await deployContract(wallet, 'TestERC20', [constants.MaxUint256.div(2)])) as TestERC20,
-    (await deployContract(wallet, 'TestERC20', [constants.MaxUint256.div(2)])) as TestERC20
+    (await deployContract(wallet, 'TestERC20', [constants.MaxUint256.div(2)])) as TestERC20,
   ]
 
   tokens.sort((a, b) => (a.address.toLowerCase() < b.address.toLowerCase() ? -1 : 1))

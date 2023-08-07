@@ -9,7 +9,9 @@ import { v2FactoryFixture } from './shared/externalFixtures'
 import { getWallets } from './shared/zkSyncUtils'
 
 describe('ImmutableState', () => {
-  async function fixture(wallets: Wallet[]): Promise<{
+  async function fixture(
+    wallets: Wallet[]
+  ): Promise<{
     factoryV2: Contract
     nft: Contract
     state: ImmutableStateTest
@@ -17,7 +19,10 @@ describe('ImmutableState', () => {
     const { factory: factoryV2 } = await v2FactoryFixture(wallets)
     const { nft } = await completeFixture(wallets)
 
-    const state = await deployContract(wallets[0], 'ImmutableStateTest', [factoryV2.address, nft.address]) as ImmutableStateTest
+    const state = (await deployContract(wallets[0], 'ImmutableStateTest', [
+      factoryV2.address,
+      nft.address,
+    ])) as ImmutableStateTest
 
     return {
       nft,

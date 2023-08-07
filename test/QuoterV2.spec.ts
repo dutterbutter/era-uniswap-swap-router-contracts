@@ -15,7 +15,9 @@ describe('QuoterV2', function () {
   let wallet: Wallet
   let trader: Wallet
 
-  async function swapRouterFixture(wallets: Wallet[]): Promise<{
+  async function swapRouterFixture(
+    wallets: Wallet[]
+  ): Promise<{
     nft: Contract
     tokens: [TestERC20, TestERC20, TestERC20]
     quoter: QuoterV2
@@ -47,11 +49,10 @@ describe('QuoterV2', function () {
     ;[wallet, trader] = await getWallets()
   })
 
-    // helper for getting weth and token balances
-    beforeEach('load fixture', async () => {
-      ;({ tokens, nft, quoter } = await swapRouterFixture([wallet]))
-    })
-
+  // helper for getting weth and token balances
+  beforeEach('load fixture', async () => {
+    ;({ tokens, nft, quoter } = await swapRouterFixture([wallet]))
+  })
 
   describe('quotes', () => {
     beforeEach(async () => {

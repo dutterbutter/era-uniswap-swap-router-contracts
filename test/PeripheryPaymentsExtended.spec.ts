@@ -8,7 +8,9 @@ import { getWallets } from './shared/zkSyncUtils'
 describe('PeripheryPaymentsExtended', function () {
   let wallet: Wallet
 
-  async function routerFixture(wallets: Wallet[]): Promise<{
+  async function routerFixture(
+    wallets: Wallet[]
+  ): Promise<{
     weth9: IWETH9
     router: MockTimeSwapRouter02
   }> {
@@ -22,7 +24,6 @@ describe('PeripheryPaymentsExtended', function () {
 
   let router: MockTimeSwapRouter02
   let weth9: IWETH9
-
 
   before('create fixture loader', async () => {
     ;[wallet] = await getWallets()

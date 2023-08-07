@@ -19,7 +19,9 @@ describe('SwapRouter gas tests', function () {
   let wallet: Wallet
   let trader: Wallet
 
-  async function swapRouterFixture(wallets: Wallet[]): Promise<{
+  async function swapRouterFixture(
+    wallets: Wallet[]
+  ): Promise<{
     weth9: IWETH9
     router: MockTimeSwapRouter02
     tokens: [TestERC20, TestERC20, TestERC20]
@@ -40,12 +42,14 @@ describe('SwapRouter gas tests', function () {
       if (tokenAddressA.toLowerCase() > tokenAddressB.toLowerCase())
         [tokenAddressA, tokenAddressB] = [tokenAddressB, tokenAddressA]
 
-      await (await nft.createAndInitializePoolIfNecessary(
-        tokenAddressA,
-        tokenAddressB,
-        FeeAmount.MEDIUM,
-        encodePriceSqrt(100005, 100000) // we don't want to cross any ticks
-      )).wait()
+      await (
+        await nft.createAndInitializePoolIfNecessary(
+          tokenAddressA,
+          tokenAddressB,
+          FeeAmount.MEDIUM,
+          encodePriceSqrt(100005, 100000) // we don't want to cross any ticks
+        )
+      ).wait()
 
       const liquidityParams = {
         token0: tokenAddressA,
@@ -289,7 +293,9 @@ describe('SwapRouter gas tests', function () {
       const callee = await deployContract(wallet, 'TestUniswapV3Callee')
 
       await (await tokens[0].connect(trader as any).approve(callee.address, constants.MaxUint256)).wait()
-      await snapshotGasCost(callee.connect(trader as any).swapExact0For1(pools[0].address, 2, trader.address, '4295128740'))
+      await snapshotGasCost(
+        callee.connect(trader as any).swapExact0For1(pools[0].address, 2, trader.address, '4295128740')
+      )
     })
 
     it('0 -> 1 -> 2', async () => {
@@ -302,13 +308,13 @@ describe('SwapRouter gas tests', function () {
     })
 
     it('WETH9 -> 0', async () => {
-      const tx = await (await exactInput(
-        [weth9.address, tokens[0].address],
-        weth9.address.toLowerCase() < tokens[0].address.toLowerCase() ? 2 : 3
-      )).wait();
-      await snapshotGasCost(
-        tx.gasUsed
-      )
+      const tx = await (
+        await exactInput(
+          [weth9.address, tokens[0].address],
+          weth9.address.toLowerCase() < tokens[0].address.toLowerCase() ? 2 : 3
+        )
+      ).wait()
+      await snapshotGasCost(tx.gasUsed)
     })
 
     it('0 -> WETH9', async () => {

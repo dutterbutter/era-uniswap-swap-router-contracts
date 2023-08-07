@@ -10,5 +10,5 @@ export function computePoolAddress(factoryAddress: string, [tokenA, tokenB]: [st
     ['address', 'address', 'uint24'],
     [token0, token1, fee]
   )
-  return zkUtils.create2Address(factoryAddress, POOL_BYTECODE_HASH, utils.keccak256(constructorArgumentsEncoded), "0x")
+  return zkUtils.create2Address(factoryAddress, POOL_BYTECODE_HASH, utils.keccak256(constructorArgumentsEncoded), '0x')
 }

@@ -7,7 +7,7 @@ describe('MulticallExtended', async () => {
   let multicall: TestMulticallExtended
 
   beforeEach('create multicall', async () => {
-    multicall = await deployContract((await getWallets())[0], 'TestMulticallExtended', []) as TestMulticallExtended
+    multicall = (await deployContract((await getWallets())[0], 'TestMulticallExtended', [])) as TestMulticallExtended
   })
 
   it('fails deadline check', async () => {

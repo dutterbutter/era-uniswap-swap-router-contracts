@@ -14,7 +14,9 @@ describe('Quoter', () => {
   let wallet: Wallet
   let trader: Wallet
 
-  async function swapRouterFixture(wallets: Wallet[]): Promise<{
+  async function swapRouterFixture(
+    wallets: Wallet[]
+  ): Promise<{
     nft: Contract
     tokens: [TestERC20, TestERC20, TestERC20]
     quoter: Quoter
