@@ -75,7 +75,6 @@
   },
   "scripts": {
     "compile": "hardhat compile",
-    "test": "hardhat test",
-    "local-setup": "./scripts/start-local-setup.sh"
+    "test": "hardhat test"
   }
 }
