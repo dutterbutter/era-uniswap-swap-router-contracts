@@ -5,7 +5,7 @@ import 'hardhat-typechain'
 import 'hardhat-watcher'
 import '@matterlabs/hardhat-zksync-solc'
 import '@matterlabs/hardhat-zksync-verify'
-import "@matterlabs/hardhat-zksync-chai-matchers";
+import '@matterlabs/hardhat-zksync-chai-matchers'
 
 const DEFAULT_COMPILER_SETTINGS = {
   version: '0.7.6',
@@ -32,13 +32,13 @@ export default {
       url: 'https://testnet.era.zksync.dev',
       ethNetwork: `https://goerli.infura.io/v3/${process.env.INFURA_API_KEY}`,
       zksync: true,
-      verifyURL: 'https://zksync2-testnet-explorer.zksync.dev/contract_verification'
+      verifyURL: 'https://zksync2-testnet-explorer.zksync.dev/contract_verification',
     },
     zkSyncMainnet: {
       url: 'https://mainnet.era.zksync.io',
       ethNetwork: `https://mainnet.infura.io/v3/${process.env.INFURA_API_KEY}`,
       zksync: true,
-      verifyURL: 'https://zksync2-mainnet-explorer.zksync.io/contract_verification'
+      verifyURL: 'https://zksync2-mainnet-explorer.zksync.io/contract_verification',
     },
   },
   defaultNetwork: 'zkSyncLocalhost',
@@ -51,8 +51,8 @@ export default {
     compilers: [DEFAULT_COMPILER_SETTINGS],
   },
   zksolc: {
-    version: "1.3.13",
-    compilerSource: "binary",
+    version: '1.3.13',
+    compilerSource: 'binary',
     settings: {
       metadata: {
         bytecodeHash: 'none',
@@ -67,6 +67,6 @@ export default {
     },
   },
   mocha: {
-    timeout: 100000000
+    timeout: 100000000,
   },
 }

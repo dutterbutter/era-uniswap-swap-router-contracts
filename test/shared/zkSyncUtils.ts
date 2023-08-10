@@ -25,7 +25,7 @@ const RICH_WALLETS = [
   },
 ]
 
-const provider = new Provider((hre.network.config as any).url)
+export const provider = new Provider((hre.network.config as any).url)
 const wallet = new Wallet(RICH_WALLETS[0].privateKey, provider)
 const DEFAULT_DEPLOYER = new Deployer(hre, wallet)
 

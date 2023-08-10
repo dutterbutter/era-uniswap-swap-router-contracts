@@ -1,7 +1,6 @@
-import { constants } from 'ethers'
 import { TestMulticallExtended } from '../typechain/TestMulticallExtended'
 import { expect } from './shared/expect'
-import { deployContract, getWallets } from './shared/zkSyncUtils'
+import { deployContract, getWallets, provider } from './shared/zkSyncUtils'
 
 describe('MulticallExtended', async () => {
   let multicall: TestMulticallExtended
@@ -39,12 +38,12 @@ describe('MulticallExtended', async () => {
   })
 
   // TODO: Doesn't work due to the batch hash is not receivable from SDK
-  // it('passes previousBlockhash check', async () => {
-  //   const block = await ethers.provider.getBlock('latest')
-  //   await expect(
-  //     multicall['multicall(bytes32,bytes[])'](block.hash, [
-  //       multicall.interface.encodeFunctionData('functionThatReturnsTuple', ['1', '2']),
-  //     ])
-  //   ).to.not.be.reverted
-  // })
+  it.skip('passes previousBlockhash check', async () => {
+    const block = await provider.getBlock('latest')
+    await expect(
+      multicall['multicall(bytes32,bytes[])'](block.hash, [
+        multicall.interface.encodeFunctionData('functionThatReturnsTuple', ['1', '2']),
+      ])
+    ).to.not.be.reverted
+  })
 })
