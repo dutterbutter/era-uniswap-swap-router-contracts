@@ -5,25 +5,10 @@ import 'hardhat-typechain'
 import 'hardhat-watcher'
 import '@matterlabs/hardhat-zksync-solc'
 import '@matterlabs/hardhat-zksync-verify'
-import '@matterlabs/hardhat-zksync-chai-matchers'
-
-const DEFAULT_COMPILER_SETTINGS = {
-  version: '0.7.6',
-  settings: {
-    evmVersion: 'istanbul',
-    optimizer: {
-      enabled: true,
-      runs: 1_000_000,
-    },
-    metadata: {
-      bytecodeHash: 'none',
-    },
-  },
-}
 
 export default {
   networks: {
-    zkSyncLocalhost: {
+    zkSyncTestNode: {
       url: 'http://localhost:8011',
       ethNetwork: '',
       zksync: true,
@@ -41,14 +26,9 @@ export default {
       verifyURL: 'https://zksync2-mainnet-explorer.zksync.io/contract_verification',
     },
   },
-  defaultNetwork: 'zkSyncLocalhost',
-  etherscan: {
-    // Your API key for Etherscan
-    // Obtain one at https://etherscan.io/
-    apiKey: process.env.ETHERSCAN_API_KEY,
-  },
+  defaultNetwork: 'zkSyncTestNode',
   solidity: {
-    compilers: [DEFAULT_COMPILER_SETTINGS],
+    version: '0.7.6',
   },
   zksolc: {
     version: '1.3.13',

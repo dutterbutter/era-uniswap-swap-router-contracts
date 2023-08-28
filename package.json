@@ -1,12 +1,11 @@
 {
-  "name": "@uniswap-zksync/era-uniswap-swap-router-contracts",
+  "name": "era-uniswap-swap-router-contracts",
   "description": "Smart contracts for swapping on Uniswap V2 and V3 forked for zkSync Era",
   "license": "GPL-2.0-or-later",
   "publishConfig": {
     "access": "public"
   },
   "version": "1.1.0",
-  "homepage": "https://uniswap.org",
   "keywords": [
     "uniswap",
     "v2",
@@ -17,17 +16,13 @@
     "contracts/base",
     "contracts/interfaces",
     "contracts/libraries",
-    "artifacts/contracts/**/*.json",
-    "!artifacts/contracts/**/*.dbg.json",
-    "!artifacts/contracts/test/**/*",
-    "!artifacts/contracts/base/**/*",
     "artifacts-zk/contracts/**/*.json",
     "!artifacts-zk/contracts/**/*.dbg.json",
     "!artifacts-zk/contracts/test/**/*",
     "!artifacts-zk/contracts/base/**/*"
   ],
   "engines": {
-    "node": ">=10"
+    "node": ">=14"
   },
   "dependencies": {
     "@openzeppelin/contracts": "3.4.1-solc-0.7-2",
@@ -37,27 +32,20 @@
     "hardhat-watcher": "^2.1.1"
   },
   "devDependencies": {
-    "@ethersproject/abi": "^5.7.0",
-    "@ethersproject/providers": "^5.7.2",
-    "@matterlabs/hardhat-zksync-chai-matchers": "^0.1.2",
     "@matterlabs/hardhat-zksync-deploy": "^0.6.3",
     "@matterlabs/hardhat-zksync-solc": "^0.3.17",
     "@matterlabs/hardhat-zksync-verify": "^0.1.5",
-    "@nomicfoundation/hardhat-chai-matchers": "^1.0.6",
-    "@nomicfoundation/hardhat-network-helpers": "^1.0.8",
-    "@nomicfoundation/hardhat-toolbox": "^2.0.2",
-    "@nomiclabs/hardhat-ethers": "^2.2.3",
-    "@nomiclabs/hardhat-etherscan": "^3.1.7",
+    "@nomiclabs/hardhat-ethers": "^2.0.2",
+    "@nomiclabs/hardhat-etherscan": "3.1.2",
     "@nomiclabs/hardhat-waffle": "^2.0.1",
     "@typechain/ethers-v5": "^4.0.0",
     "@types/chai": "^4.2.6",
     "@types/mocha": "^5.2.7",
-    "chai": "^4.3.7",
+    "chai": "^4.2.0",
     "decimal.js": "^10.2.1",
     "ethereum-waffle": "^3.0.2",
     "ethers": "^5.7.0",
     "hardhat": "^2.14.0",
-    "hardhat-gas-reporter": "^1.0.9",
     "hardhat-typechain": "^0.3.5",
     "is-svg": "^4.3.1",
     "mocha": "^6.2.2",
@@ -66,7 +54,6 @@
     "prettier-plugin-solidity": "^1.0.0-beta.10",
     "solhint": "^3.2.1",
     "solhint-plugin-prettier": "^0.0.5",
-    "solidity-coverage": "^0.8.2",
     "ts-generator": "^0.1.1",
     "ts-node": "^8.5.4",
     "typechain": "^4.0.0",
