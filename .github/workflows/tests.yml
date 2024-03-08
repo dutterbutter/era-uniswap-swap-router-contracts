@@ -12,28 +12,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 16.x
           registry-url: https://registry.npmjs.org
-      - uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-
-      - name: Install test node dependencies
-        run: |
-          sudo apt-get update && sudo apt-get install -y \
-            cmake pkg-config libssl-dev clang
-
-      - name: Install test node
-        run: |
-          cargo install --git https://github.com/matter-labs/era-test-node.git --locked
 
       - id: yarn-cache
         run: echo "::set-output name=dir::$(yarn cache dir)"
 
-      - uses: actions/cache@v1
+      - uses: actions/cache@v4
         with:
           path: ${{ steps.yarn-cache.outputs.dir }}
           key: yarn-${{ hashFiles('**/yarn.lock') }}
@@ -46,10 +34,6 @@ jobs:
       # This is required separately from yarn test because it generates the typechain definitions
       - name: Compile
         run: yarn compile
-
-      - name: Run test node
-        run: |
-          era_test_node run &
 
       - name: Run unit tests
         run: yarn test

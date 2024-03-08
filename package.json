@@ -35,8 +35,9 @@
     "hardhat-watcher": "^2.1.1"
   },
   "devDependencies": {
-    "@matterlabs/hardhat-zksync-deploy": "^0.6.3",
-    "@matterlabs/hardhat-zksync-solc": "^0.3.17",
+    "@matterlabs/hardhat-zksync-deploy": "0.8.0",
+    "@matterlabs/hardhat-zksync-node": "0.1.0",
+    "@matterlabs/hardhat-zksync-solc": "^1.1.4",
     "@matterlabs/hardhat-zksync-verify": "^0.1.5",
     "@nomiclabs/hardhat-ethers": "^2.0.2",
     "@nomiclabs/hardhat-etherscan": "3.1.2",
@@ -61,6 +62,7 @@
     "ts-node": "^8.5.4",
     "typechain": "^4.0.0",
     "typescript": "^3.7.3",
+    "zksync-ethers": "^5.0.0",
     "zksync-web3": "^0.14.3"
   },
   "scripts": {
