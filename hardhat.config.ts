@@ -35,7 +35,7 @@ export default {
     version: '0.7.6',
   },
   zksolc: {
-    version: '1.3.13',
+    version: '1.4.0',
     settings: {
       metadata: {
         bytecodeHash: 'none',
