@@ -31,12 +31,9 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Clear Hardhat Cache
-        run: rm -rf ./node_modules/.cache/hardhat-nodejs
-
       # This is required separately from yarn test because it generates the typechain definitions
       - name: Compile
-        run: yarn compile --verbose
+        run: yarn compile
 
       - name: Run unit tests
         run: yarn test
