@@ -36,7 +36,6 @@ export default {
   },
   zksolc: {
     version: '1.3.13',
-    compilerSource: 'binary',
     settings: {
       metadata: {
         bytecodeHash: 'none',
